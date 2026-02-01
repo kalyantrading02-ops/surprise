@@ -51,8 +51,7 @@ button {
     border: none;
     border-radius: 40px;
     cursor: pointer;
-    margin: 15px;
-    position: relative;
+    margin: 12px;
 }
 
 .yes {
@@ -63,6 +62,11 @@ button {
 .no {
     background: #4d79ff;
     color: white;
+}
+
+.prev {
+    font-size: 1.4rem;
+    opacity: 0.7;
 }
 
 /* Floating hearts */
@@ -99,7 +103,6 @@ button {
 
 .red {
     color: red;
-    font-size: 2.3rem;
 }
 
 /* Fireworks */
@@ -118,18 +121,21 @@ button {
 
 <body>
 
-<!-- Romantic Music -->
 <audio autoplay loop>
   <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
 </audio>
 
 <div class="container">
-    <h1 id="question">Hey <span class="name">Ananya</span>, can I ask you something?</h1>
+    <h1 id="question">
+        Hey <span class="name">Ananya</span>, can I ask you something?
+    </h1>
+
     <button class="yes" onclick="yesClick()">YES</button>
     <button class="no" id="noBtn" onclick="noClick()" onmouseover="moveNo()">NO</button>
+    <br>
+    <button class="prev" onclick="prevQuestion()" id="prevBtn">⬅ Previous</button>
 </div>
 
-<!-- Popup -->
 <div class="popup" id="popup">
     <div class="popup-content" id="popupText"></div>
 </div>
@@ -138,10 +144,16 @@ button {
 let step = 0;
 
 const questions = [
+    "Hey Ananya, can I ask you something?",
     "Do you smile when you see my message?",
     "Do you know you are special to me?",
     "Will you be my Valentine?"
 ];
+
+function updateQuestion() {
+    document.getElementById("question").innerHTML = questions[step];
+    document.getElementById("prevBtn").style.display = step === 0 ? "none" : "inline-block";
+}
 
 function yesClick() {
     if (questions[step] === "Will you be my Valentine?") {
@@ -150,14 +162,27 @@ function yesClick() {
         setTimeout(finalScreen, 2500);
         return;
     }
-    document.getElementById("question").innerHTML = questions[step];
     step++;
+    updateQuestion();
 }
 
 function noClick() {
     if (questions[step] === "Will you be my Valentine?") {
-        showPopup("<span class='red'>❌ Invalid choice<br>You are already my Valentine</span>");
+        showPopup("<span class='red'>❌ Invalid choice.<br>System has detected you are already my Valentine ❤️</span>");
+        return;
     }
+}
+
+function prevQuestion() {
+    if (step === 0) return;
+
+    if (questions[step] === "Will you be my Valentine?") {
+        showPopup("<span class='red'>❌ No going back now 😏</span>");
+        return;
+    }
+
+    step--;
+    updateQuestion();
 }
 
 /* NO button runs away */
@@ -205,13 +230,12 @@ function fireworks() {
 function finalScreen() {
     document.body.innerHTML = `
     <h1 style="text-align:center;font-size:3.5rem;">
-    You are my Valentine forever ❤<br><br>
-    <a href="https://wa.me/?text=I%20just%20said%20YES%20to%20my%20Valentine%20❤" 
-       style="color:white;text-decoration:none;font-size:2rem;">
-       Share on WhatsApp 💬
-    </a>
+    You are my Valentine forever ❤<br>
+    I knew you would say YES 😍
     </h1>`;
 }
+
+updateQuestion();
 </script>
 
 </body>
