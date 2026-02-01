@@ -21,9 +21,9 @@ body {
 }
 
 @keyframes bg {
-    0% {background-position: 0% 50%;}
-    50% {background-position: 100% 50%;}
-    100% {background-position: 0% 50%;}
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
 .container {
@@ -42,7 +42,7 @@ h1 {
 
 @keyframes glow {
     from { text-shadow: 0 0 10px pink; }
-    to { text-shadow: 0 0 30px red; }
+    to   { text-shadow: 0 0 30px red; }
 }
 
 button {
@@ -52,6 +52,10 @@ button {
     border-radius: 40px;
     cursor: pointer;
     margin: 12px;
+
+    /* 🔒 HARD LOCK — NO MOVEMENT POSSIBLE */
+    position: static !important;
+    transform: none !important;
 }
 
 .yes { background: #ff4d6d; color: white; }
@@ -70,7 +74,7 @@ button {
     animation: floatUp 6s linear infinite;
 }
 @keyframes floatUp {
-    0% { transform: translateY(0) scale(0.5); opacity: 1; }
+    0%   { transform: translateY(0) scale(0.5); opacity: 1; }
     100% { transform: translateY(-100vh) scale(1.2); opacity: 0; }
 }
 
@@ -100,7 +104,7 @@ button {
     animation: boom 1.5s ease-out forwards;
 }
 @keyframes boom {
-    0% { transform: scale(0); opacity: 1; }
+    0%   { transform: scale(0); opacity: 1; }
     100% { transform: scale(3); opacity: 0; }
 }
 </style>
@@ -139,7 +143,8 @@ const questions = [
 
 function updateQuestion() {
     document.getElementById("question").innerHTML = questions[step];
-    document.getElementById("prevBtn").style.display = step === 0 ? "none" : "inline-block";
+    document.getElementById("prevBtn").style.display =
+        step === 0 ? "none" : "inline-block";
 }
 
 function yesClick() {
@@ -155,7 +160,10 @@ function yesClick() {
 
 function noClick() {
     if (questions[step] === "Will you be my Valentine?") {
-        showPopup("<span class='red'>❌ Invalid choice.<br>System has detected you are already my Valentine ❤️</span>");
+        showPopup(
+            "<span class='red'>❌ Invalid choice.<br>" +
+            "System has detected you are already my Valentine ❤️</span>"
+        );
     }
 }
 
@@ -197,7 +205,7 @@ function fireworks() {
         f.className = "firework";
         f.innerHTML = "✨";
         f.style.left = Math.random() * 100 + "vw";
-        f.style.top = Math.random() * 100 + "vh";
+        f.style.top  = Math.random() * 100 + "vh";
         document.body.appendChild(f);
         setTimeout(() => f.remove(), 1500);
     }
@@ -206,10 +214,10 @@ function fireworks() {
 /* Final Screen */
 function finalScreen() {
     document.body.innerHTML = `
-    <h1 style="text-align:center;font-size:3.5rem;">
-    You are my Valentine forever ❤<br>
-    I knew you would say YES 😍
-    </h1>`;
+        <h1 style="text-align:center;font-size:3.5rem;">
+        You are my Valentine forever ❤<br>
+        I knew you would say YES 😍
+        </h1>`;
 }
 
 updateQuestion();
