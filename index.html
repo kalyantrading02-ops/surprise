@@ -131,7 +131,7 @@ button {
     </h1>
 
     <button class="yes" onclick="yesClick()">YES</button>
-    <button class="no" id="noBtn" onclick="noClick()" onmouseover="moveNo()">NO</button>
+    <button class="no" onclick="noClick()">NO</button>
     <br>
     <button class="prev" onclick="prevQuestion()" id="prevBtn">⬅ Previous</button>
 </div>
@@ -169,7 +169,6 @@ function yesClick() {
 function noClick() {
     if (questions[step] === "Will you be my Valentine?") {
         showPopup("<span class='red'>❌ Invalid choice.<br>System has detected you are already my Valentine ❤️</span>");
-        return;
     }
 }
 
@@ -183,14 +182,6 @@ function prevQuestion() {
 
     step--;
     updateQuestion();
-}
-
-/* NO button runs away */
-function moveNo() {
-    const b = document.getElementById("noBtn");
-    b.style.position = "absolute";
-    b.style.left = Math.random() * (window.innerWidth - 150) + "px";
-    b.style.top = Math.random() * (window.innerHeight - 150) + "px";
 }
 
 /* Floating hearts */
