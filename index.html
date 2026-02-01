@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Just For You</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(45deg, #ff6b6b, #feca57, #ff9ff3, #54a0ff);
+    background-size: 400% 400%;
+    animation: bg 15s ease infinite;
+    font-family: cursive;
+    color: white;
+}
+
+@keyframes bg {
+    0% {background-position: 0% 50%;}
+    50% {background-position: 100% 50%;}
+    100% {background-position: 0% 50%;}
+}
+
+.container {
+    text-align: center;
+    z-index: 2;
+}
+
+h1 {
+    font-size: 3rem;
+}
+
+.name {
+    font-size: 3.5rem;
+    animation: glow 2s infinite alternate;
+}
+
+@keyframes glow {
+    from { text-shadow: 0 0 10px pink; }
+    to { text-shadow: 0 0 30px red; }
+}
+
+button {
+    font-size: 2rem;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 40px;
+    cursor: pointer;
+    margin: 15px;
+    position: relative;
+}
+
+.yes {
+    background: #ff4d6d;
+    color: white;
+}
+
+.no {
+    background: #4d79ff;
+    color: white;
+}
+
+/* Floating hearts */
+.heart {
+    position: fixed;
+    bottom: -20px;
+    font-size: 24px;
+    animation: floatUp 6s linear infinite;
+}
+
+@keyframes floatUp {
+    0% { transform: translateY(0) scale(0.5); opacity: 1; }
+    100% { transform: translateY(-100vh) scale(1.2); opacity: 0; }
+}
+
+/* Popup */
+.popup {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.8);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+.popup-content {
+    background: black;
+    padding: 30px;
+    border-radius: 20px;
+    font-size: 2rem;
+    text-align: center;
+}
+
+.red {
+    color: red;
+    font-size: 2.3rem;
+}
+
+/* Fireworks */
+.firework {
+    position: fixed;
+    font-size: 30px;
+    animation: boom 1.5s ease-out forwards;
+}
+
+@keyframes boom {
+    0% { transform: scale(0); opacity: 1; }
+    100% { transform: scale(3); opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Romantic Music -->
+<audio autoplay loop>
+  <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
+</audio>
+
+<div class="container">
+    <h1 id="question">Hey <span class="name">Ananya</span>, can I ask you something?</h1>
+    <button class="yes" onclick="yesClick()">YES</button>
+    <button class="no" id="noBtn" onclick="noClick()" onmouseover="moveNo()">NO</button>
+</div>
+
+<!-- Popup -->
+<div class="popup" id="popup">
+    <div class="popup-content" id="popupText"></div>
+</div>
+
+<script>
+let step = 0;
+
+const questions = [
+    "Do you smile when you see my message?",
+    "Do you know you are special to me?",
+    "Will you be my Valentine?"
+];
+
+function yesClick() {
+    if (questions[step] === "Will you be my Valentine?") {
+        showPopup("You don’t have any other option too 😏");
+        fireworks();
+        setTimeout(finalScreen, 2500);
+        return;
+    }
+    document.getElementById("question").innerHTML = questions[step];
+    step++;
+}
+
+function noClick() {
+    if (questions[step] === "Will you be my Valentine?") {
+        showPopup("<span class='red'>❌ Invalid choice<br>You are already my Valentine</span>");
+    }
+}
+
+/* NO button runs away */
+function moveNo() {
+    const b = document.getElementById("noBtn");
+    b.style.position = "absolute";
+    b.style.left = Math.random() * (window.innerWidth - 150) + "px";
+    b.style.top = Math.random() * (window.innerHeight - 150) + "px";
+}
+
+/* Floating hearts */
+function createHeart() {
+    const h = document.createElement("div");
+    h.className = "heart";
+    h.innerHTML = "❤";
+    h.style.left = Math.random() * 100 + "vw";
+    document.body.appendChild(h);
+    setTimeout(() => h.remove(), 6000);
+}
+setInterval(createHeart, 300);
+
+/* Popup */
+function showPopup(text) {
+    document.getElementById("popupText").innerHTML = text;
+    document.getElementById("popup").style.display = "flex";
+    setTimeout(() => {
+        document.getElementById("popup").style.display = "none";
+    }, 2000);
+}
+
+/* Fireworks */
+function fireworks() {
+    for (let i = 0; i < 20; i++) {
+        const f = document.createElement("div");
+        f.className = "firework";
+        f.innerHTML = "✨";
+        f.style.left = Math.random() * 100 + "vw";
+        f.style.top = Math.random() * 100 + "vh";
+        document.body.appendChild(f);
+        setTimeout(() => f.remove(), 1500);
+    }
+}
+
+/* Final Screen */
+function finalScreen() {
+    document.body.innerHTML = `
+    <h1 style="text-align:center;font-size:3.5rem;">
+    You are my Valentine forever ❤<br><br>
+    <a href="https://wa.me/?text=I%20just%20said%20YES%20to%20my%20Valentine%20❤" 
+       style="color:white;text-decoration:none;font-size:2rem;">
+       Share on WhatsApp 💬
+    </a>
+    </h1>`;
+}
+</script>
+
+</body>
+</html>
