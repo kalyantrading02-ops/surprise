@@ -52,6 +52,18 @@ button{
     color:white;
 }
 
+/* Peach & Goma GIFs */
+.gif-box{
+    display:none;
+    margin:20px 0;
+}
+
+.gif-box img{
+    width:160px;
+    margin:10px;
+    border-radius:20px;
+}
+
 /* Special section */
 .special-photo{
     width:260px;
@@ -115,19 +127,25 @@ button{
 
 <div class="container">
 
-<!-- VALENTINE QUESTION (FIRST) -->
-<h1>💝 Will you be my Valentine?</h1>
+<!-- VALENTINE QUESTION -->
+<h1><strong>💝 Preethi, will you be my Valentine?</strong></h1>
 <button class="yes" onclick="valentineYes()">YES</button>
 <button class="no" onclick="valentineNo()">NO</button>
 
+<!-- PEACH & GOMA GIFS -->
+<div class="gif-box" id="gomaBox">
+    <img src="https://media.tenor.com/2roX3uxz_68AAAAi/peach-goma-hug.gif" alt="Peach Goma Hug">
+    <img src="https://media.tenor.com/W7xZ2z1U1OAAAAAi/peach-goma-love.gif" alt="Peach Goma Love">
+</div>
+
 <hr style="margin:40px 0;">
 
-<!-- SPECIAL DAY QUESTION (HIDDEN UNTIL YES) -->
+<!-- NEXT QUESTION (HIDDEN UNTIL YES) -->
 <div id="specialSection" style="display:none;">
 
 <img src="special-day.jpg" class="special-photo" alt="Our Special Day">
 
-<h2>✨ What makes this day so special for us?</h2>
+<h2><strong>✨ What makes this day so special for us?</strong></h2>
 
 <button class="option-btn" onclick="wrongAnswer()">🤍 The first time we met alone at Matunga</button>
 <button class="option-btn" onclick="wrongAnswer()">☕ The first time we went to Ram Ashraya together</button>
@@ -145,6 +163,7 @@ button{
 <script>
 function valentineYes(){
     showPopup("😏 You don’t have any other option too");
+    document.getElementById("gomaBox").style.display = "block";
     document.getElementById("specialSection").style.display = "block";
 }
 
