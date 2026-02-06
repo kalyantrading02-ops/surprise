@@ -55,7 +55,7 @@ button{
 /* Peach & Goma GIFs */
 .gif-box{
     display:none;
-    margin:20px 0;
+    margin:25px 0;
 }
 
 .gif-box img{
@@ -132,15 +132,15 @@ button{
 <button class="yes" onclick="valentineYes()">YES</button>
 <button class="no" onclick="valentineNo()">NO</button>
 
-<!-- PEACH & GOMA GIFS -->
+<!-- PEACH & GOMA GIFs (FIXED LINKS) -->
 <div class="gif-box" id="gomaBox">
-    <img src="https://media.tenor.com/2roX3uxz_68AAAAi/peach-goma-hug.gif" alt="Peach Goma Hug">
-    <img src="https://media.tenor.com/W7xZ2z1U1OAAAAAi/peach-goma-love.gif" alt="Peach Goma Love">
+    <img src="https://media.tenor.com/2roX3uxz_68AAAAC/peach-goma-hug.gif" alt="Peach Goma Hug">
+    <img src="https://media.tenor.com/Z8Z7R9C7cHkAAAAC/peach-goma-love.gif" alt="Peach Goma Love">
 </div>
 
 <hr style="margin:40px 0;">
 
-<!-- NEXT QUESTION (HIDDEN UNTIL YES) -->
+<!-- NEXT QUESTION -->
 <div id="specialSection" style="display:none;">
 
 <img src="special-day.jpg" class="special-photo" alt="Our Special Day">
@@ -173,7 +173,6 @@ function valentineNo(){
     );
 }
 
-/* Special question logic */
 function wrongAnswer(){
     showPopup("😈 It’s punishment time");
 }
@@ -183,14 +182,12 @@ function rightAnswer(){
     heartsBurst();
 }
 
-/* Popup helper */
 function showPopup(msg){
     document.getElementById("popupText").innerHTML = msg;
     document.getElementById("popup").style.display="flex";
     setTimeout(()=>{document.getElementById("popup").style.display="none"},2200);
 }
 
-/* Hearts burst animation */
 function heartsBurst(){
     for(let i=0;i<18;i++){
         const h=document.createElement("div");
