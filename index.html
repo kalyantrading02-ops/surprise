@@ -84,6 +84,12 @@ button{
     padding:25px;
     border-radius:20px;
     font-size:1.4rem;
+    text-align:center;
+}
+
+.red{
+    color:red;
+    font-weight:bold;
 }
 
 /* Hearts burst */
@@ -102,6 +108,11 @@ button{
 
 <body>
 
+<!-- LOVE MUSIC -->
+<audio autoplay loop>
+  <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
+</audio>
+
 <div class="container">
 
 <!-- VALENTINE QUESTION (FIRST) -->
@@ -111,7 +122,9 @@ button{
 
 <hr style="margin:40px 0;">
 
-<!-- SPECIAL DAY QUESTION -->
+<!-- SPECIAL DAY QUESTION (HIDDEN UNTIL YES) -->
+<div id="specialSection" style="display:none;">
+
 <img src="special-day.jpg" class="special-photo" alt="Our Special Day">
 
 <h2>✨ What makes this day so special for us?</h2>
@@ -122,6 +135,7 @@ button{
 <button class="option-btn" onclick="wrongAnswer()">🎤 The day you gave me a long speech about my mistake</button>
 
 </div>
+</div>
 
 <!-- POPUP -->
 <div class="popup" id="popup">
@@ -131,10 +145,13 @@ button{
 <script>
 function valentineYes(){
     showPopup("😏 You don’t have any other option too");
+    document.getElementById("specialSection").style.display = "block";
 }
 
 function valentineNo(){
-    showPopup("❌ Invalid choice");
+    showPopup(
+        "<span class='red'>❌ Invalid choice.<br>System has detected you are already my Valentine</span>"
+    );
 }
 
 /* Special question logic */
@@ -151,7 +168,7 @@ function rightAnswer(){
 function showPopup(msg){
     document.getElementById("popupText").innerHTML = msg;
     document.getElementById("popup").style.display="flex";
-    setTimeout(()=>{document.getElementById("popup").style.display="none"},2000);
+    setTimeout(()=>{document.getElementById("popup").style.display="none"},2200);
 }
 
 /* Hearts burst animation */
