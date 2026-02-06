@@ -2,225 +2,170 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Just For You</title>
+<title>Just For You ❤️</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-body {
-    margin: 0;
-    height: 100vh;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: linear-gradient(45deg, #ff6b6b, #feca57, #ff9ff3, #54a0ff);
-    background-size: 400% 400%;
-    animation: bg 15s ease infinite;
-    font-family: cursive;
-    color: white;
+body{
+    margin:0;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(45deg,#ff6b6b,#feca57,#ff9ff3,#54a0ff);
+    background-size:400% 400%;
+    animation:bg 15s ease infinite;
+    font-family:cursive;
+    color:white;
 }
 
-@keyframes bg {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+@keyframes bg{
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
 }
 
-.container {
-    text-align: center;
-    z-index: 2;
+.container{
+    text-align:center;
+    max-width:90%;
 }
 
-h1 {
-    font-size: 3rem;
+/* Buttons */
+button{
+    padding:14px 24px;
+    margin:10px;
+    border:none;
+    border-radius:30px;
+    cursor:pointer;
+    font-size:1.2rem;
 }
 
-.name {
-    font-size: 3.5rem;
-    animation: glow 2s infinite alternate;
+.yes{
+    font-size:2.2rem;
+    background:#ff4d6d;
+    color:white;
 }
 
-@keyframes glow {
-    from { text-shadow: 0 0 10px pink; }
-    to   { text-shadow: 0 0 30px red; }
+.no{
+    font-size:1rem;
+    background:#4d79ff;
+    color:white;
 }
 
-button {
-    font-size: 2rem;
-    padding: 15px 30px;
-    border: none;
-    border-radius: 40px;
-    cursor: pointer;
-    margin: 12px;
-
-    /* 🔒 HARD LOCK — NO MOVEMENT POSSIBLE */
-    position: static !important;
-    transform: none !important;
+/* Special section */
+.special-photo{
+    width:260px;
+    max-width:90%;
+    border-radius:20px;
+    margin:20px 0;
 }
 
-.yes { background: #ff4d6d; color: white; }
-.no  { background: #4d79ff; color: white; }
-
-.prev {
-    font-size: 1.4rem;
-    opacity: 0.7;
-}
-
-/* Floating hearts */
-.heart {
-    position: fixed;
-    bottom: -20px;
-    font-size: 24px;
-    animation: floatUp 6s linear infinite;
-}
-@keyframes floatUp {
-    0%   { transform: translateY(0) scale(0.5); opacity: 1; }
-    100% { transform: translateY(-100vh) scale(1.2); opacity: 0; }
+.option-btn{
+    display:block;
+    margin:10px auto;
+    background:#ffe3ec;
+    color:black;
 }
 
 /* Popup */
-.popup {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.8);
-    display: none;
-    justify-content: center;
-    align-items: center;
-    z-index: 10;
+.popup{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.75);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:10;
 }
-.popup-content {
-    background: black;
-    padding: 30px;
-    border-radius: 20px;
-    font-size: 2rem;
-    text-align: center;
-}
-.red { color: red; }
 
-/* Fireworks */
-.firework {
-    position: fixed;
-    font-size: 30px;
-    animation: boom 1.5s ease-out forwards;
+.popup-box{
+    background:white;
+    color:black;
+    padding:25px;
+    border-radius:20px;
+    font-size:1.4rem;
 }
-@keyframes boom {
-    0%   { transform: scale(0); opacity: 1; }
-    100% { transform: scale(3); opacity: 0; }
+
+/* Hearts burst */
+.heart{
+    position:fixed;
+    font-size:26px;
+    animation:burst 1.6s ease-out forwards;
+}
+
+@keyframes burst{
+    0%{transform:scale(0);opacity:1}
+    100%{transform:scale(3);opacity:0}
 }
 </style>
 </head>
 
 <body>
 
-<audio autoplay loop>
-  <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
-</audio>
-
 <div class="container">
-    <h1 id="question">
-        Hey <span class="name">Ananya</span>, can I ask you something?
-    </h1>
 
-    <button class="yes" onclick="yesClick()">YES</button>
-    <button class="no" onclick="noClick()">NO</button>
-    <br>
-    <button class="prev" onclick="prevQuestion()" id="prevBtn">⬅ Previous</button>
+<!-- VALENTINE QUESTION (FIRST) -->
+<h1>💝 Will you be my Valentine?</h1>
+<button class="yes" onclick="valentineYes()">YES</button>
+<button class="no" onclick="valentineNo()">NO</button>
+
+<hr style="margin:40px 0;">
+
+<!-- SPECIAL DAY QUESTION -->
+<img src="special-day.jpg" class="special-photo" alt="Our Special Day">
+
+<h2>✨ What makes this day so special for us?</h2>
+
+<button class="option-btn" onclick="wrongAnswer()">🤍 The first time we met alone at Matunga</button>
+<button class="option-btn" onclick="wrongAnswer()">☕ The first time we went to Ram Ashraya together</button>
+<button class="option-btn" onclick="rightAnswer()">🫂 The first time I pampered and took care of you during your periods</button>
+<button class="option-btn" onclick="wrongAnswer()">🎤 The day you gave me a long speech about my mistake</button>
+
 </div>
 
+<!-- POPUP -->
 <div class="popup" id="popup">
-    <div class="popup-content" id="popupText"></div>
+    <div class="popup-box" id="popupText"></div>
 </div>
 
 <script>
-let step = 0;
-
-const questions = [
-    "Hey Ananya, can I ask you something?",
-    "Do you smile when you see my message?",
-    "Do you know you are special to me?",
-    "Will you be my Valentine?"
-];
-
-function updateQuestion() {
-    document.getElementById("question").innerHTML = questions[step];
-    document.getElementById("prevBtn").style.display =
-        step === 0 ? "none" : "inline-block";
+function valentineYes(){
+    showPopup("😏 You don’t have any other option too");
 }
 
-function yesClick() {
-    if (questions[step] === "Will you be my Valentine?") {
-        showPopup("You don’t have any other option too 😏");
-        fireworks();
-        setTimeout(finalScreen, 2500);
-        return;
-    }
-    step++;
-    updateQuestion();
+function valentineNo(){
+    showPopup("❌ Invalid choice");
 }
 
-function noClick() {
-    if (questions[step] === "Will you be my Valentine?") {
-        showPopup(
-            "<span class='red'>❌ Invalid choice.<br>" +
-            "System has detected you are already my Valentine ❤️</span>"
-        );
-    }
+/* Special question logic */
+function wrongAnswer(){
+    showPopup("😈 It’s punishment time");
 }
 
-function prevQuestion() {
-    if (step === 0) return;
-
-    if (questions[step] === "Will you be my Valentine?") {
-        showPopup("<span class='red'>❌ No going back now 😏</span>");
-        return;
-    }
-    step--;
-    updateQuestion();
+function rightAnswer(){
+    showPopup("❤️ That’s exactly what I wanted to hear. Come here, you’ve earned it 😘");
+    heartsBurst();
 }
 
-/* Floating hearts */
-function createHeart() {
-    const h = document.createElement("div");
-    h.className = "heart";
-    h.innerHTML = "❤";
-    h.style.left = Math.random() * 100 + "vw";
-    document.body.appendChild(h);
-    setTimeout(() => h.remove(), 6000);
-}
-setInterval(createHeart, 300);
-
-/* Popup */
-function showPopup(text) {
-    document.getElementById("popupText").innerHTML = text;
-    document.getElementById("popup").style.display = "flex";
-    setTimeout(() => {
-        document.getElementById("popup").style.display = "none";
-    }, 2000);
+/* Popup helper */
+function showPopup(msg){
+    document.getElementById("popupText").innerHTML = msg;
+    document.getElementById("popup").style.display="flex";
+    setTimeout(()=>{document.getElementById("popup").style.display="none"},2000);
 }
 
-/* Fireworks */
-function fireworks() {
-    for (let i = 0; i < 20; i++) {
-        const f = document.createElement("div");
-        f.className = "firework";
-        f.innerHTML = "✨";
-        f.style.left = Math.random() * 100 + "vw";
-        f.style.top  = Math.random() * 100 + "vh";
-        document.body.appendChild(f);
-        setTimeout(() => f.remove(), 1500);
+/* Hearts burst animation */
+function heartsBurst(){
+    for(let i=0;i<18;i++){
+        const h=document.createElement("div");
+        h.className="heart";
+        h.innerHTML="❤️";
+        h.style.left=Math.random()*100+"vw";
+        h.style.top=Math.random()*100+"vh";
+        document.body.appendChild(h);
+        setTimeout(()=>h.remove(),1600);
     }
 }
-
-/* Final Screen */
-function finalScreen() {
-    document.body.innerHTML = `
-        <h1 style="text-align:center;font-size:3.5rem;">
-        You are my Valentine forever ❤<br>
-        I knew you would say YES 😍
-        </h1>`;
-}
-
-updateQuestion();
 </script>
 
 </body>
